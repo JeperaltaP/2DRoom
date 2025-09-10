@@ -25,4 +25,10 @@ public class PlayerController : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
 
     }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        
+    }
 }
