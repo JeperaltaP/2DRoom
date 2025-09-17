@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f; //variable para guardar la velocidad
     public int score = 0;
+    public bool hasKey = false;
+    public bool hasWater = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,10 +38,27 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             Debug.Log("Collected!!!");
             Debug.Log("Score: " + score);
-            if(score >= 3)
-            {
-                Debug.Log("Has Ganado");
-            }
+        }
+        
+        if (other.CompareTag("Key"))
+        {
+            hasKey = true;
+            Debug.Log("Key Collected!");
+            Destroy(other.gameObject);
+        }
+
+        //condición de victoria
+        if (score >= 3 && hasKey && !hasWater) // el && significa "y", el || significa "o"; como en lógica: V||V = V, V||F = V, F||F = F
+        {
+            Debug.Log("Has ganado, no has tocado el agua, tienes suficientes puntos y la llave!");
+        }
+        // para booleanos, si se pone el nombre de la variable sola, se asume si es verdadero, si tiene "!" delante, se asume si es falso
+        
+        if (other.CompareTag("Water"))
+        {
+            hasWater = true;
+            Debug.Log("Muelto");
+            Destroy(gameObject);
         }
     }
 }
